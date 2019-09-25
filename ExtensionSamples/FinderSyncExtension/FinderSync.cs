@@ -23,7 +23,13 @@ namespace FinderSyncExtension
 
 		public override NSImage ToolbarItemImage { get; } = NSImage.ImageNamed (NSImageName.ApplicationIcon);
 
-		public override NSMenu GetMenu (FIMenuKind menuKind)
+        public FinderSync():base()       
+        {
+            // Comment/uncomment the line below to expose the bug
+            FIFinderSyncController.DefaultController.DirectoryUrls = new NSSet(NSFileManager.DefaultManager.GetHomeDirectoryForCurrentUser());
+        }
+
+        public override NSMenu GetMenu (FIMenuKind menuKind)
 		{
 			var menu = new NSMenu (string.Empty);
 			menu.AddItem ("Get URL", new ObjCRuntime.Selector ("getURL:"), string.Empty);
